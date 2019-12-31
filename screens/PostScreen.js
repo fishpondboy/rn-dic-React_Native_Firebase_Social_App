@@ -3,22 +3,74 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   TouchableOpacity,
-  Image,
-  TextInput
+  SafeAreaView,
+  TextInput,
+  Image
 } from 'react-native';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 import { Ionicons } from '@expo/vector-icons';
+import Fire from '../Fire';
+import * as ImagePicker from 'expo-image-picker';
+
+const firebase = require('firebase');
+require('firebase/firestore');
 
 export default class PostScreen extends React.Component {
+  state = {
+    text: '',
+    image: null
+  };
+
+  componentDidMount() {
+    this.getPhotoPermission();
+  }
+
+  getPhotoPermission = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+      if (status != 'granted') {
+        alert(
+          "We need permission to use your camera roll if you'd like to incude a photo."
+        );
+      }
+    }
+  };
+
+  handlePost = () => {
+    Fire.shared
+      .addPost({ text: this.state.text.trim(), localUri: this.state.image })
+      .then(ref => {
+        this.setState({ text: '', image: null });
+        this.props.navigation.goBack();
+      })
+      .catch(error => {
+        alert(error);
+      });
+  };
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3]
+    });
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity>
-            <Ionicons name='md-arrow-back' size={24} color='#d8d9db'></Ionicons>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <Ionicons name='md-arrow-back' size={24} color='#D8D9DB'></Ionicons>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.handlePost}>
             <Text style={{ fontWeight: '500' }}>Post</Text>
           </TouchableOpacity>
         </View>
@@ -34,12 +86,21 @@ export default class PostScreen extends React.Component {
             numberOfLines={4}
             style={{ flex: 1 }}
             placeholder='Want to share something?'
+            onChangeText={text => this.setState({ text })}
+            value={this.state.text}
           ></TextInput>
         </View>
 
-        <TouchableOpacity style={styles.photo}>
-          <Ionicons name='md-camera' size={32} color='#d8d9db'></Ionicons>
+        <TouchableOpacity style={styles.photo} onPress={this.pickImage}>
+          <Ionicons name='md-camera' size={32} color='#D8D9DB'></Ionicons>
         </TouchableOpacity>
+
+        <View style={{ marginHorizontal: 32, marginTop: 32, height: 150 }}>
+          <Image
+            source={{ uri: this.state.image }}
+            style={{ width: '100%', height: '100%' }}
+          ></Image>
+        </View>
       </SafeAreaView>
     );
   }
@@ -55,7 +116,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#d8d9db'
+    borderBottomColor: '#D8D9DB'
   },
   inputContainer: {
     margin: 32,
