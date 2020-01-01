@@ -37,28 +37,26 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content'></StatusBar>
-
         <Image
           source={require('../assets/authHeader.png')}
           style={{ marginTop: -176, marginLeft: -50 }}
         ></Image>
-
         <Image
           source={require('../assets/authFooter.png')}
           style={{ position: 'absolute', bottom: -325, right: -225 }}
         ></Image>
-
         <Image
           source={require('../assets/loginLogo.png')}
           style={{ marginTop: -110, alignSelf: 'center' }}
         ></Image>
-
         <Text style={styles.greeting}>{'Hello again.\nWelcome back.'}</Text>
+
         <View style={styles.errorMessage}>
           {this.state.errorMessage && (
             <Text style={styles.error}> {this.state.errorMessage} </Text>
           )}
         </View>
+
         <View style={styles.form}>
           <View>
             <Text style={styles.inputTitle}>Email Address</Text>
@@ -110,18 +108,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textAlign: 'center'
   },
-  errorMessage: {
-    height: 72,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 30
-  },
-  error: {
-    color: '#e9446a',
-    fontSize: 13,
-    fontWeight: '600',
-    textAlign: 'center'
-  },
   form: {
     marginBottom: 48,
     marginHorizontal: 30
@@ -145,5 +131,17 @@ const styles = StyleSheet.create({
     height: 52,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  errorMessage: {
+    height: 72,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 30
+  },
+  error: {
+    color: '#e9446a',
+    fontSize: 13,
+    fontWeight: '600',
+    textAlign: 'center'
   }
 });

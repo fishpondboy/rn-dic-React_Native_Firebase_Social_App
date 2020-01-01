@@ -1,9 +1,9 @@
 import React from 'react';
+
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
-
 import LoadingScreen from './screens/LoadingScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -13,8 +13,6 @@ import MessageScreen from './screens/MessageScreen';
 import PostScreen from './screens/PostScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import ProfileScreen from './screens/ProfileScreen';
-
-import * as firebase from 'firebase';
 
 const AppContainer = createStackNavigator(
   {
@@ -46,10 +44,7 @@ const AppContainer = createStackNavigator(
                 color='#E9446a'
                 style={{
                   shadowColor: '#E9446a',
-                  shadowOffset: {
-                    width: 0,
-                    height: 0
-                  },
+                  shadowOffset: { width: 0, height: 10 },
                   shadowRadius: 10,
                   shadowOpacity: 0.3
                 }}
@@ -97,8 +92,8 @@ const AppContainer = createStackNavigator(
   },
   {
     mode: 'modal',
-    headerMode: 'none',
-    initialRouteName: 'postModal'
+    headerMode: 'none'
+    // initialRouteName: 'postModal'
   }
 );
 

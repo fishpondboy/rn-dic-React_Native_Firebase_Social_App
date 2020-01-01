@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-  View,
-  Text,
   StyleSheet,
+  Text,
   TextInput,
+  View,
   TouchableOpacity,
   Image,
   StatusBar
@@ -16,12 +16,7 @@ export default class RegisterScreen extends React.Component {
     header: null
   };
 
-  state = {
-    name: '',
-    email: '',
-    password: '',
-    errorMessage: null
-  };
+  state = { name: '', email: '', password: '', errorMessage: null };
 
   handleSignUp = () => {
     firebase
@@ -39,17 +34,14 @@ export default class RegisterScreen extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar barStyle='light-content'></StatusBar>
-
         <Image
           source={require('../assets/authHeader.png')}
-          style={{ marginTop: -176, marginLeft: -50 }}
+          style={{ marginTop: -116, marginLeft: -50 }}
         ></Image>
-
         <Image
           source={require('../assets/authFooter.png')}
           style={{ position: 'absolute', bottom: -325, right: -225 }}
         ></Image>
-
         <TouchableOpacity
           style={styles.back}
           onPress={() => this.props.navigation.goBack('')}
@@ -60,7 +52,6 @@ export default class RegisterScreen extends React.Component {
             color='#FFF'
           ></Ionicons>
         </TouchableOpacity>
-
         <View
           style={{
             position: 'absolute',
@@ -84,7 +75,7 @@ export default class RegisterScreen extends React.Component {
 
         <View style={styles.errorMessage}>
           {this.state.errorMessage && (
-            <Text style={styles.error}> {this.state.errorMessage} </Text>
+            <Text style={styles.error}>{this.state.errorMessage}</Text>
           )}
         </View>
 
@@ -93,7 +84,6 @@ export default class RegisterScreen extends React.Component {
             <Text style={styles.inputTitle}>Full Name</Text>
             <TextInput
               style={styles.input}
-              autoCapitalize='none'
               onChangeText={name => this.setState({ name })}
               value={this.state.name}
             ></TextInput>
@@ -138,7 +128,6 @@ export default class RegisterScreen extends React.Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -146,21 +135,9 @@ const styles = StyleSheet.create({
   greeting: {
     marginTop: 32,
     fontSize: 18,
-    fontWeight: '400',
+    fontWeight: '500',
     textAlign: 'center',
     color: '#FFF'
-  },
-  errorMessage: {
-    height: 72,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 30
-  },
-  error: {
-    color: '#e9446a',
-    fontSize: 13,
-    fontWeight: '600',
-    textAlign: 'center'
   },
   form: {
     marginBottom: 48,
@@ -178,6 +155,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#161f3d'
   },
+  errorMessage: {
+    height: 72,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 30
+  },
   button: {
     marginHorizontal: 30,
     backgroundColor: '#E9446a',
@@ -186,6 +169,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  error: {
+    color: '#e9446a',
+    fontSize: 13,
+    fontWeight: '600',
+    textAlign: 'center'
+  },
   back: {
     position: 'absolute',
     top: 48,
@@ -193,16 +182,16 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: 'rgba(21,22,48,0.1)',
+    backgroundColor: 'rgba(21, 22, 48, 0.1)',
     alignItems: 'center',
     justifyContent: 'center'
   },
   avatar: {
     width: 100,
     height: 100,
-    borderRadius: 50,
     backgroundColor: '#e1e2e6',
-    marginTop: 46,
+    borderRadius: 50,
+    marginTop: 48,
     justifyContent: 'center',
     alignItems: 'center'
   }
