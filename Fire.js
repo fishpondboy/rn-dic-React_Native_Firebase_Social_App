@@ -85,7 +85,7 @@ class Fire {
   };
 
   signOut = () => {
-    firebase.auth.signOut();
+    firebase.auth().signOut();
   };
 
   get firestore() {
